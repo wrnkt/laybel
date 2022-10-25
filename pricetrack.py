@@ -1,6 +1,19 @@
 #!/usr/bin/python3
 import sys
 import argparse
+import cProfile
+import pstats
+
+def time_me(func):
+    def wrapper(*args, **kwargs):
+        with cProfile.Profile() as pr:
+            res = func(*args, **kwargs)
+        stats = pstats.Stats(pr)
+        stats.sort_stats(pstats.SortKey.TIME)
+        stats.print_stats()
+        stats.dump_stats(filename=f"[LOG]: profiling {func.__name__}")
+        return res
+    return wrapper
 
 
 def log_info(debugmode:bool = False):
@@ -13,6 +26,7 @@ def log_info(debugmode:bool = False):
         return wrapper
     return outer_wrapper
 
+@time_me
 @log_info(debugmode=True)
 def create_parser():
     parser = argparse.ArgumentParser(description='')
