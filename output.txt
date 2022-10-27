@@ -1,13 +1,13 @@
-Listing URL: https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd
-Date Accessed: Thu Oct 27 03:26:11 2022
+Listing URL: https://www.ebay.com/itm/394297550797?hash=item5bcdf727cd:g:knYAAOSw5S5jSznl
+Date Accessed: Thu Oct 27 03:30:43 2022
 
 request = 'title'
-query_result = 'ferragamo tie mens'
+query_result = 'louis vuittons wallet men new'
 
 request = 'current-auction'
-query_result = 'US $17.50'
+query_result = 'US $185.50'
 
 request = 'buy-it-now'
-query_result = 'US $50.00'
+query_result = 'No Buy It Now price.'
 
 ------------------------------------------

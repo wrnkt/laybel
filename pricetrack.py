@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 
 from threading import Timer
 
-
+#######
 # DEBUG
 def time_me(func):
     def wrapper(*args, **kwargs):
@@ -38,6 +38,7 @@ def log_info(debugmode:bool = False):
         return wrapper
     return outer_wrapper
 
+#######
 # SETUP
 
 # @time_me
@@ -105,14 +106,20 @@ def get_buy_it_now(soup: BeautifulSoup) -> str:
         return "No Buy It Now price."
     return output
 
+@query_not_implemented
+def get_watchers(soup: BeautifulSoup) -> int:
+    output = ""
+    return output
 
 #################
 # QUERY DICTIONARY
 QUERY_DICTIONARY = {
         "title": get_listing_title,
         "current-auction": get_current_auction,
-        "buy-it-now": get_buy_it_now
+        "buy-it-now": get_buy_it_now,
+        "watchers": get_watchers
 }
+
 
 ##########
 # GET INFO
