@@ -1,0 +1,1 @@
+url = 'https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd' interval = 1

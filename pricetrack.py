@@ -61,38 +61,44 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
-def get_info_from_url(url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd"):
-    if is_url(url):
-        print("valid url")
+def get_info_from_url(
+    url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
+    info_requests: list[str]):
+        if is_url(url):
+            print("valid url")
 
-        listing_html = requests.get(url)
-        listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
-        print(listing_soup)
-    else:
-        raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
+            listing_html = requests.get(url)
+            listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
+            print(listing_soup.get_text())
+        else:
+            raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
 
 def is_url(url: str):
     return True
 
+def log_to_file(printable: str, file_path: str="./output.txt"):
+    with open(file_path, "w") as file:
+        print(printable, file=file)
     
 def log_price(interval: int):
      pass
+
 
 if __name__ == "__main__":
 
     arg_parser = create_parser()
     parsed_args = arg_parser.parse_args(sys.argv[1:])
 
-    interval = 1
+    interval = 1 # default
 
     if parsed_args.interval:
         interval = parsed_args.interval
 
     url = parsed_args.listing_url
 
-    print(f"{url = } {interval = }")
+    # get_info_from_url()
+    log_to_file(f"{url = } {interval = }")
     print(get_sleep_delay(2))
-    get_info_from_url()
 
     
 
