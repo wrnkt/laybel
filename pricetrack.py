@@ -61,27 +61,34 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
-def listing_title_from_soup(soup: BeautifulSoup):
-    log_to_file(soup.find("div", {"class": "vim x-item-title"}))
+def listing_title_from_soup(soup: BeautifulSoup) -> str:
+    output = str(soup.find("div", {"class": "vim x-item-title"}))
+    return output
 
-request = {
+QUERY_DICTIONARY = {
         "title": listing_title_from_soup,
 }
 
 def get_info_from_url(
     url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
     info_requests: list[str]=["title"]):
-        if is_url(url):
-            print("valid url")
+    """Performs a list of queries for a given URL"""
 
-            listing_html = requests.get(url)
-            listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
+    if is_url(url):
+        print("valid url")
 
-            for r in info_requests:
-                request[r](listing_soup)
+        listing_html = requests.get(url)
+        listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
 
-        else:
-            raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
+        output = ""
+
+        for request in info_requests:
+            query_result = QUERY_DICTIONARY[request](listing_soup)
+            output += request + query_result
+            output += query_result
+
+    else:
+        raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
 
 def is_url(url: str):
     return True
@@ -107,7 +114,6 @@ if __name__ == "__main__":
     url = parsed_args.listing_url
 
     get_info_from_url()
-    # log_to_file(f"{url = } {interval = }")
     print(get_sleep_delay(2))
 
     
