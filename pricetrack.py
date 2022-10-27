@@ -95,7 +95,7 @@ def get_info_from_url(
             query_result = QUERY_DICTIONARY[request](listing_soup)
             output += f"{request = }\n{query_result = }\n"
 
-        print(output)
+        log_to_file(output)
 
     else:
         raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
@@ -113,10 +113,10 @@ if __name__ == "__main__":
     arg_parser = create_parser()
     parsed_args = arg_parser.parse_args(sys.argv[1:])
 
-    interval = 1 # default
-
     if parsed_args.interval:
         interval = parsed_args.interval
+    else:
+        interval = 1    # default
 
     url = parsed_args.listing_url
 
