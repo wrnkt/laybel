@@ -1,5 +1,5 @@
 Listing URL: https://www.ebay.com/itm/394297550797?hash=item5bcdf727cd:g:knYAAOSw5S5jSznl
-Date Accessed: Thu Oct 27 03:30:43 2022
+Date Accessed: Thu Oct 27 04:02:59 2022
 
 request = 'title'
 query_result = 'louis vuittons wallet men new'

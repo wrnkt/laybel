@@ -117,6 +117,7 @@ def get_watchers(soup: BeautifulSoup) -> int:
 
 #################
 # QUERY DICTIONARY
+
 QUERY_DICTIONARY = {
         "title": get_listing_title,
         "current-auction": get_current_auction,
@@ -130,7 +131,7 @@ QUERY_DICTIONARY = {
 
 def send_info_to_file(
     url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
-    info_requests: list[str]=["title","current-auction", "buy-it-now"]):
+    info_requests: list[str]=["title"]):
     """Performs a list of queries given listing URL"""
 
     listing_html = requests.get(url)
@@ -157,6 +158,7 @@ def is_url(url: str):
 def log_price(interval: int):
      pass
 
+
 ######
 # MAIN
 
@@ -174,8 +176,7 @@ if __name__ == "__main__":
 
     if is_url(url):
         print("VALID URL")
-        send_info_to_file(url)
+        send_info_to_file(url, ["title", "current-auction", "buy-it-now"])
     else:
         raise Exception("INVALID URL")
     
-
