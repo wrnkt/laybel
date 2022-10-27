@@ -61,15 +61,25 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
+def listing_title_from_soup(soup: BeautifulSoup):
+    log_to_file(soup.find("div", {"class": "vim x-item-title"}))
+
+request = {
+        "title": listing_title_from_soup,
+}
+
 def get_info_from_url(
     url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
-    info_requests: list[str]):
+    info_requests: list[str]=["title"]):
         if is_url(url):
             print("valid url")
 
             listing_html = requests.get(url)
             listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
-            print(listing_soup.get_text())
+
+            for r in info_requests:
+                request[r](listing_soup)
+
         else:
             raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
 
@@ -96,8 +106,8 @@ if __name__ == "__main__":
 
     url = parsed_args.listing_url
 
-    # get_info_from_url()
-    log_to_file(f"{url = } {interval = }")
+    get_info_from_url()
+    # log_to_file(f"{url = } {interval = }")
     print(get_sleep_delay(2))
 
     
