@@ -1,7 +1,13 @@
+Listing URL: https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd
+Date Accessed: Thu Oct 27 03:26:11 2022
+
 request = 'title'
-query_result = '<div class="vim x-item-title" data-testid="x-item-title"><h1 class="x-item-title__mainTitle"> <!--F#0--><!--F#f_1--><!--F#1[0]--><span class="ux-textspans ux-textspans--BOLD"><!--F#f_7[0]-->ferragamo tie mens<!--F/--></span><!--F/--><!--F/--><!--F/--></h1></div>'
+query_result = 'ferragamo tie mens'
 
 request = 'current-auction'
-query_result = 'ERROR: get_current_auction not implemented.'
+query_result = 'US $17.50'
 
+request = 'buy-it-now'
+query_result = 'US $50.00'
 
+------------------------------------------
