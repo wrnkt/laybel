@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 import sys
 import argparse
+
 import cProfile
 import pstats
+
+import bs4 as bs4
+import requests
+
 from threading import Timer
 
 def time_me(func):
@@ -52,7 +57,17 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
+def grab_price_from_url(url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd"):
+    if is_url(url):
+        pass
+        print("valid url")
+    else:
+        raise Exception("INVALID URL PASSED TO {grab_price_from_url.__name__}")
 
+def is_url(url: str):
+    return True
+    
+    
 def log_price(interval: int):
      pass
 
@@ -71,6 +86,7 @@ if __name__ == "__main__":
 
     print(f"{url = } {interval = }")
     print(get_sleep_delay(2))
+    grab_price_from_url()
 
     
 
