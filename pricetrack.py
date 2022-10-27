@@ -50,6 +50,7 @@ def create_parser():
 
 
 def get_sleep_delay(interval: int) -> int:
+    """Get necessary time delay between polling based on interval."""
     seconds_in_day = 86400
     second_delay = 0
     if interval == 1:
@@ -61,10 +62,18 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
+def log_to_file(printable: str, file_path: str="./output.txt"):
+    """Clear file and write to it"""
+    with open(file_path, "w") as file:
+        print(printable, file=file)
+
+# DEFINE QUERIES & REFERENCE IN DICTIONARY
+# all should take soup object and return a string or number
 def listing_title_from_soup(soup: BeautifulSoup) -> str:
     output = str(soup.find("div", {"class": "vim x-item-title"}))
     return output
 
+# QUERY REFERENCE
 QUERY_DICTIONARY = {
         "title": listing_title_from_soup,
 }
@@ -94,9 +103,6 @@ def get_info_from_url(
 def is_url(url: str):
     return True
 
-def log_to_file(printable: str, file_path: str="./output.txt"):
-    with open(file_path, "w") as file:
-        print(printable, file=file)
     
 def log_price(interval: int):
      pass
