@@ -88,13 +88,13 @@ def query_not_implemented(query):
 
 def get_listing_title(soup: BeautifulSoup) -> str:
     """Get title from eBay listing page"""
-    output = str(soup.find("div", {"class": "vim x-item-title"}))
+    output = str(soup.find("div", {"class": "vim x-item-title"}).text)
     return output
 
 @query_not_implemented
 def get_current_auction(soup: BeautifulSoup) -> str:
-    output=""
     """Get current auction price from eBay listing page"""
+    output=""
     return output
 
 
@@ -108,7 +108,7 @@ QUERY_DICTIONARY = {
 ##########
 # GET INFO
 
-def get_info_from_url(
+def send_info_to_file(
     url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
     info_requests: list[str]=["title","current-auction"]):
     """Performs a list of queries given listing URL"""
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 
     if is_url(url):
         print("VALID URL")
-        get_info_from_url(url)
+        send_info_to_file(url)
     else:
         raise Exception("INVALID URL")
     
