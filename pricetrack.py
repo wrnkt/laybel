@@ -2,11 +2,14 @@
 import sys
 import argparse
 
+from pprint import pprint
+
 import cProfile
 import pstats
 
-import bs4 as bs4
+import urllib
 import requests
+from bs4 import BeautifulSoup
 
 from threading import Timer
 
@@ -45,6 +48,7 @@ def create_parser():
     parser.add_argument("listing_url", type=str, help='The ebay listing url.')
     return parser
 
+
 def get_sleep_delay(interval: int) -> int:
     seconds_in_day = 86400
     second_delay = 0
@@ -57,20 +61,22 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
-def grab_price_from_url(url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd"):
+def get_info_from_url(url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd"):
     if is_url(url):
-        pass
         print("valid url")
+
+        listing_html = requests.get(url)
+        listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
+        print(listing_soup)
     else:
-        raise Exception("INVALID URL PASSED TO {grab_price_from_url.__name__}")
+        raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
 
 def is_url(url: str):
     return True
-    
+
     
 def log_price(interval: int):
      pass
-
 
 if __name__ == "__main__":
 
@@ -86,7 +92,7 @@ if __name__ == "__main__":
 
     print(f"{url = } {interval = }")
     print(get_sleep_delay(2))
-    grab_price_from_url()
+    get_info_from_url()
 
     
 
