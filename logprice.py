@@ -87,7 +87,7 @@ def log_to_file(printable: str, file_path: str="output.txt"):
 
 def query_not_implemented(query):
     def wrapper(*args, **kwargs):
-        return query(*args, **kwargs) + f"ERROR: {query.__name__} not implemented."
+        return f"ERROR: {query.__name__} not implemented."
     return wrapper
 
 def get_listing_title(soup: BeautifulSoup) -> str:
@@ -114,6 +114,10 @@ def get_watchers(soup: BeautifulSoup) -> int:
     output = ""
     return output
 
+@query_not_implemented
+def get_number_bids(soup: BeautifulSoup) -> int:
+    output = ""
+    return output
 
 #################
 # QUERY DICTIONARY
@@ -176,7 +180,8 @@ if __name__ == "__main__":
 
     if is_url(url):
         print("VALID URL")
-        send_info_to_file(url, ["title", "current-auction", "buy-it-now"])
+        send_info_to_file(url, ["title", "current-auction", "buy-it-now",
+        "watchers"])
     else:
         raise Exception("INVALID URL")
     
