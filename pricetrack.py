@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup
 
 from threading import Timer
 
+
+# DEBUG
 def time_me(func):
     def wrapper(*args, **kwargs):
         with cProfile.Profile() as pr:
@@ -24,7 +26,6 @@ def time_me(func):
         return res
     return wrapper
 
-
 def log_info(debugmode:bool = False):
     def outer_wrapper(func):
         def wrapper(*args, **kwargs):
@@ -34,6 +35,8 @@ def log_info(debugmode:bool = False):
             return res
         return wrapper
     return outer_wrapper
+
+# SETUP
 
 # @time_me
 # @log_info(debugmode=True)
@@ -62,14 +65,19 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
+
+########
+# OUTPUT
 def log_to_file(printable: str, file_path: str="output.txt"):
     """Clear file and write to it"""
     print(f"Printing to {file_path}")
     with open(file_path, "w") as file:
         print(printable, file=file)
 
-# DEFINE QUERIES & REFERENCE IN DICTIONARY
-# all should take soup object and return a string or number
+###################
+# QUERY DEFINITIONS
+# *reference by dictionary entry
+# soup object -> string or number
 
 def query_not_implemented(query):
     def wrapper(*args, **kwargs):
@@ -88,11 +96,15 @@ def get_current_auction(soup: BeautifulSoup) -> str:
     return output
 
 
-# QUERY REFERENCE
+#################
+# QUERY DICTIONARY
 QUERY_DICTIONARY = {
         "title": get_listing_title,
         "current-auction": get_current_auction
 }
+
+##########
+# GET INFO
 
 def get_info_from_url(
     url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
@@ -118,7 +130,8 @@ def is_url(url: str):
 def log_price(interval: int):
      pass
 
-
+######
+# MAIN
 if __name__ == "__main__":
 
     arg_parser = create_parser()
@@ -136,9 +149,5 @@ if __name__ == "__main__":
         get_info_from_url(url)
     else:
         raise Exception("INVALID URL")
-
-    # print(get_sleep_delay(2))
-
     
-
 
