@@ -69,13 +69,16 @@ def log_to_file(printable: str, file_path: str="./output.txt"):
 
 # DEFINE QUERIES & REFERENCE IN DICTIONARY
 # all should take soup object and return a string or number
-def listing_title_from_soup(soup: BeautifulSoup) -> str:
+def get_listing_title(soup: BeautifulSoup) -> str:
     output = str(soup.find("div", {"class": "vim x-item-title"}))
     return output
 
+def query_not_implemented()
+
 # QUERY REFERENCE
 QUERY_DICTIONARY = {
-        "title": listing_title_from_soup,
+        "title": get_listing_title,
+        "current-auction": get_current_auction,
 }
 
 def get_info_from_url(
