@@ -79,28 +79,43 @@ def log_to_file(printable: str, file_path: str="output.txt"):
     with open(file_path, "w") as file:
         print(printable, file=file)
 
+#################
+# QUERY DICTIONARY
+
+QUERY_DICTIONARY = {
+}
 
 ###################
 # QUERY DEFINITIONS
 # *reference by dictionary entry
 # soup object -> string or number
 
-def query_not_implemented(query):
+def add_query(query_fn):
+    fn_ref_name = query_fn.__name__.replace("get_", "")
+    QUERY_DICTIONARY[fn_ref_name] = query_fn
     def wrapper(*args, **kwargs):
-        return f"ERROR: {query.__name__} not implemented."
+        return query_fn(*args, **kwargs)
     return wrapper
 
-def get_listing_title(soup: BeautifulSoup) -> str:
+def query_not_implemented(query):
+    def wrapper(*args, **kwargs):
+        return query(*args, **kwargs) + f"ERROR: {query.__name__} not implemented."
+    return wrapper
+
+@add_query
+def get_title(soup: BeautifulSoup) -> str:
     """Get title from eBay listing page"""
     output = str(soup.find("div", {"class": "vim x-item-title"}).text)
     output = output.strip()
     return output
 
+@add_query
 def get_current_auction(soup: BeautifulSoup) -> str:
     """Get current auction price from eBay listing page"""
     output = str(soup.find("span", {"id": "prcIsum_bidPrice"}).text)
     return output
 
+@add_query
 def get_buy_it_now(soup: BeautifulSoup) -> str:
     """Get Buy It Now price if it exists"""
     try:
@@ -110,24 +125,16 @@ def get_buy_it_now(soup: BeautifulSoup) -> str:
     return output
 
 @query_not_implemented
-def get_watchers(soup: BeautifulSoup) -> int:
+@add_query
+def get_watchers(soup: BeautifulSoup) -> str:
     output = ""
     return output
 
 @query_not_implemented
+@add_query
 def get_number_bids(soup: BeautifulSoup) -> int:
     output = ""
     return output
-
-#################
-# QUERY DICTIONARY
-
-QUERY_DICTIONARY = {
-        "title": get_listing_title,
-        "current-auction": get_current_auction,
-        "buy-it-now": get_buy_it_now,
-        "watchers": get_watchers
-}
 
 
 ##########
@@ -180,8 +187,8 @@ if __name__ == "__main__":
 
     if is_url(url):
         print("VALID URL")
-        send_info_to_file(url, ["title", "current-auction", "buy-it-now",
-        "watchers"])
+        send_info_to_file(url, ["title", "current_auction", "buy_it_now",
+        "watchers", "number_bids"])
     else:
         raise Exception("INVALID URL")
     
