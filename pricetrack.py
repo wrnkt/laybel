@@ -92,10 +92,9 @@ def get_listing_title(soup: BeautifulSoup) -> str:
     output = output.strip()
     return output
 
-@query_not_implemented
 def get_current_auction(soup: BeautifulSoup) -> str:
     """Get current auction price from eBay listing page"""
-    output=""
+    output = str(soup.find("span", {"id": "prcIsum_bidPrice"}).text)
     return output
 
 
