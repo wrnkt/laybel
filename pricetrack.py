@@ -7,6 +7,8 @@ from pprint import pprint
 import cProfile
 import pstats
 
+import time
+
 import urllib
 import requests
 from bs4 import BeautifulSoup
@@ -115,10 +117,15 @@ def get_info_from_url(
     listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
 
     output = ""
+    date_accessed = time.ctime(time.time())
+    output += f"Listing URL: {url}\n"
+    output += f"Date Accessed: {date_accessed}\n\n"
 
     for request in info_requests:
         query_result = QUERY_DICTIONARY[request](listing_soup)
         output += f"{request = }\n{query_result = }\n\n"
+
+    output += "------------------------------------------"
 
     log_to_file(output)
 
