@@ -71,18 +71,21 @@ def log_to_file(printable: str, file_path: str="output.txt"):
 # DEFINE QUERIES & REFERENCE IN DICTIONARY
 # all should take soup object and return a string or number
 
-def query_not_implemented(func):
-    print(f"ERROR: {func.__name__} not implemented.")
-    return func
+def query_not_implemented(query):
+    def wrapper(*args, **kwargs):
+        return query(*args, **kwargs) + f"ERROR: {query.__name__} not implemented."
+    return wrapper
 
 def get_listing_title(soup: BeautifulSoup) -> str:
+    """Get title from eBay listing page"""
     output = str(soup.find("div", {"class": "vim x-item-title"}))
     return output
 
 @query_not_implemented
 def get_current_auction(soup: BeautifulSoup) -> str:
-    output = ""
-    print(output)
+    output=""
+    """Get current auction price from eBay listing page"""
+    return output
 
 
 # QUERY REFERENCE
@@ -93,8 +96,8 @@ QUERY_DICTIONARY = {
 
 def get_info_from_url(
     url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
-    info_requests: list[str]=["title"]):
-    """Performs a list of queries for a given URL"""
+    info_requests: list[str]=["title","current-auction"]):
+    """Performs a list of queries given listing URL"""
 
     listing_html = requests.get(url)
     listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
