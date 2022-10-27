@@ -62,23 +62,33 @@ def get_sleep_delay(interval: int) -> int:
 
     return second_delay
 
-def log_to_file(printable: str, file_path: str="./output.txt"):
+def log_to_file(printable: str, file_path: str="output.txt"):
     """Clear file and write to it"""
+    print(f"Printing to {file_path}")
     with open(file_path, "w") as file:
         print(printable, file=file)
 
 # DEFINE QUERIES & REFERENCE IN DICTIONARY
 # all should take soup object and return a string or number
+
+def query_not_implemented(func):
+    print(f"ERROR: {func.__name__} not implemented.")
+    return func
+
 def get_listing_title(soup: BeautifulSoup) -> str:
     output = str(soup.find("div", {"class": "vim x-item-title"}))
     return output
 
-def query_not_implemented()
+@query_not_implemented
+def get_current_auction(soup: BeautifulSoup) -> str:
+    output = ""
+    print(output)
+
 
 # QUERY REFERENCE
 QUERY_DICTIONARY = {
         "title": get_listing_title,
-        "current-auction": get_current_auction,
+        "current-auction": get_current_auction
 }
 
 def get_info_from_url(
@@ -93,7 +103,7 @@ def get_info_from_url(
 
     for request in info_requests:
         query_result = QUERY_DICTIONARY[request](listing_soup)
-        output += f"{request = }\n{query_result = }\n"
+        output += f"{request = }\n{query_result = }\n\n"
 
     log_to_file(output)
 
@@ -119,7 +129,7 @@ if __name__ == "__main__":
         interval = 1    # default
 
     if is_url(url):
-        print("valid url")
+        print("VALID URL")
         get_info_from_url(url)
     else:
         raise Exception("INVALID URL")
