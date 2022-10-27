@@ -97,12 +97,21 @@ def get_current_auction(soup: BeautifulSoup) -> str:
     output = str(soup.find("span", {"id": "prcIsum_bidPrice"}).text)
     return output
 
+def get_buy_it_now(soup: BeautifulSoup) -> str:
+    """Get Buy It Now price if it exists"""
+    try:
+        output = str(soup.find("span", {"id": "prcIsum"}).text)
+    except:
+        return "No Buy It Now price."
+    return output
+
 
 #################
 # QUERY DICTIONARY
 QUERY_DICTIONARY = {
         "title": get_listing_title,
-        "current-auction": get_current_auction
+        "current-auction": get_current_auction,
+        "buy-it-now": get_buy_it_now
 }
 
 ##########
@@ -110,7 +119,7 @@ QUERY_DICTIONARY = {
 
 def send_info_to_file(
     url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
-    info_requests: list[str]=["title","current-auction"]):
+    info_requests: list[str]=["title","current-auction", "buy-it-now"]):
     """Performs a list of queries given listing URL"""
 
     listing_html = requests.get(url)
