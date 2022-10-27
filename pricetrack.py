@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
     url = parsed_args.listing_url
 
-    get_info_from_url()
+    get_info_from_url(url)
     print(get_sleep_delay(2))
 
     
