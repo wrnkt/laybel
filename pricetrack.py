@@ -89,6 +89,7 @@ def query_not_implemented(query):
 def get_listing_title(soup: BeautifulSoup) -> str:
     """Get title from eBay listing page"""
     output = str(soup.find("div", {"class": "vim x-item-title"}).text)
+    output = output.strip()
     return output
 
 @query_not_implemented
