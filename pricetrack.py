@@ -83,22 +83,17 @@ def get_info_from_url(
     info_requests: list[str]=["title"]):
     """Performs a list of queries for a given URL"""
 
-    if is_url(url):
-        print("valid url")
+    listing_html = requests.get(url)
+    listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
 
-        listing_html = requests.get(url)
-        listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
+    output = ""
 
-        output = ""
+    for request in info_requests:
+        query_result = QUERY_DICTIONARY[request](listing_soup)
+        output += f"{request = }\n{query_result = }\n"
 
-        for request in info_requests:
-            query_result = QUERY_DICTIONARY[request](listing_soup)
-            output += f"{request = }\n{query_result = }\n"
+    log_to_file(output)
 
-        log_to_file(output)
-
-    else:
-        raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
 
 def is_url(url: str):
     return True
@@ -113,15 +108,20 @@ if __name__ == "__main__":
     arg_parser = create_parser()
     parsed_args = arg_parser.parse_args(sys.argv[1:])
 
+    url = parsed_args.listing_url
+
     if parsed_args.interval:
         interval = parsed_args.interval
     else:
         interval = 1    # default
 
-    url = parsed_args.listing_url
+    if is_url(url):
+        print("valid url")
+        get_info_from_url(url)
+    else:
+        raise Exception("INVALID URL")
 
-    get_info_from_url(url)
-    print(get_sleep_delay(2))
+    # print(get_sleep_delay(2))
 
     
 
