@@ -17,6 +17,7 @@ from threading import Timer
 
 #######
 # DEBUG
+
 def time_me(func):
     def wrapper(*args, **kwargs):
         with cProfile.Profile() as pr:
@@ -71,11 +72,13 @@ def get_sleep_delay(interval: int) -> int:
 
 ########
 # OUTPUT
+
 def log_to_file(printable: str, file_path: str="output.txt"):
     """Clear file and write to it"""
     print(f"Printing to {file_path}")
     with open(file_path, "w") as file:
         print(printable, file=file)
+
 
 ###################
 # QUERY DEFINITIONS
@@ -110,6 +113,7 @@ def get_buy_it_now(soup: BeautifulSoup) -> str:
 def get_watchers(soup: BeautifulSoup) -> int:
     output = ""
     return output
+
 
 #################
 # QUERY DICTIONARY
@@ -155,6 +159,7 @@ def log_price(interval: int):
 
 ######
 # MAIN
+
 if __name__ == "__main__":
 
     arg_parser = create_parser()
