@@ -84,8 +84,9 @@ def get_info_from_url(
 
         for request in info_requests:
             query_result = QUERY_DICTIONARY[request](listing_soup)
-            output += request + query_result
-            output += query_result
+            output += f"{request = }\n{query_result = }\n"
+
+        print(output)
 
     else:
         raise Exception("INVALID URL PASSED TO {get_info_from_url.__name__}")
