@@ -125,17 +125,19 @@ def get_buy_it_now(soup: BeautifulSoup) -> str:
     return output
 
 @add_query
-def get_watchers(soup: BeautifulSoup) -> str:
+def get_number_bids(soup: BeautifulSoup) -> str:
     try:
         output = str(soup.find("span", {"id": "qty-test"}).text)
     except:
         return "0"
     return output
 
-@query_not_implemented
 @add_query
-def get_number_bids(soup: BeautifulSoup) -> int:
-    output = ""
+def get_watchers(soup: BeautifulSoup) -> str:
+    try:
+        output = str(soup.find("span", {"class": "w2b-sgl"}).text)
+    except:
+        return "0"
     return output
 
 

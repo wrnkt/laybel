@@ -1,13 +1,19 @@
 Listing URL: https://www.ebay.com/itm/394297550797?hash=item5bcdf727cd:g:knYAAOSw5S5jSznl
-Date Accessed: Thu Oct 27 04:02:59 2022
+Date Accessed: Thu Oct 27 20:18:15 2022
 
 request = 'title'
 query_result = 'louis vuittons wallet men new'
 
-request = 'current-auction'
-query_result = 'US $185.50'
+request = 'current_auction'
+query_result = 'US $188.50'
 
-request = 'buy-it-now'
+request = 'buy_it_now'
 query_result = 'No Buy It Now price.'
+
+request = 'watchers'
+query_result = '12 watchers'
+
+request = 'number_bids'
+query_result = '4'
 
 ------------------------------------------
