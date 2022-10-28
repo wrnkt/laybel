@@ -42,8 +42,6 @@ def log_info(debugmode:bool = False):
 #######
 # SETUP
 
-# @time_me
-# @log_info(debugmode=True)
 def create_parser():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument(
@@ -126,6 +124,7 @@ def get_buy_it_now(soup: BeautifulSoup) -> str:
 
 @add_query
 def get_number_bids(soup: BeautifulSoup) -> str:
+    """Get current number of bids on the listing"""
     try:
         output = str(soup.find("span", {"id": "qty-test"}).text)
     except:
@@ -134,6 +133,7 @@ def get_number_bids(soup: BeautifulSoup) -> str:
 
 @add_query
 def get_watchers(soup: BeautifulSoup) -> str:
+    """Get current number of listing watchers"""
     try:
         output = str(soup.find("span", {"class": "w2b-sgl"}).text)
     except:
