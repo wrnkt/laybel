@@ -124,10 +124,12 @@ def get_buy_it_now(soup: BeautifulSoup) -> str:
         return "No Buy It Now price."
     return output
 
-@query_not_implemented
 @add_query
 def get_watchers(soup: BeautifulSoup) -> str:
-    output = ""
+    try:
+        output = str(soup.find("span", {"id": "qty-test"}).text)
+    except:
+        return "0"
     return output
 
 @query_not_implemented
