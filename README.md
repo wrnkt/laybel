@@ -1,9 +1,11 @@
-### PriceTracker
+### Ebay Listing Logger
 
 Pull and store at given interval:
-- current price
+- title
+- current auction price
+- buy it now price
 - watchers
-- sell price
+- number of bids
 given an eBay listing URL
 
 Generate a graph of the pricing.
@@ -11,6 +13,6 @@ Draw correlation between time until listing end and current highest bid.
 
 ### Usage
 ```console
-$ ./pricetrack <url> <interval>
+$ python3 loglisting.py <url> <interval>
 ```
 *<interval>: multiple of 2 <= 24*
