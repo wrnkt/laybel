@@ -153,24 +153,52 @@ def get_watchers(soup: BeautifulSoup) -> str:
 ##########
 # GET INFO
 
-def send_info_to_file(url: str, info_requests: list[str]=["title"]):
-    """Performs a list of queries given eBay listing URL"""
+def int_to_word(number: int):
+    mapping = {
+            "1":"one",
+            "2":"two",
+            "3":"three",
+            "4":"four",
+            "5":"five",
+            "6":"six",
+            "7":"seven",
+            "8":"eight",
+            "9":"nine"}
+    return mapping[number]
 
-    listing_html = requests.get(url)
-    listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
+def send_scrape_to_file(url: str, info_requests: list[str], output_dir: str):
+    """Sends scrape to output file"""
+    results = scrape_to_dict(url, info_requests)
+    
+    file_input = ""
 
-    output = ""
-    date_accessed = time.ctime(time.time())
-    output += f"Listing URL: {url}\n"
-    output += f"Date Accessed: {date_accessed}\n\n"
+    def construct_file_path(results, output_dir):
+        date_accessed = time.ctime(time.time())
+        date_accessed = date_accessed.replace(" ", "-")
+        title = results["title"].lower()
+        for character in title:
+            if character.isdigit():
+                title = title.replace(character, int_to_word(character))
+            if character == " ":
+                title = title.replace(character, "-")
+            if character == "/":
+                title = title.replace(character, "-")
 
-    for request in info_requests:
-        query_result = QUERY_DICTIONARY[request](listing_soup)
-        output += f"{request = }\n{query_result = }\n\n"
 
-    output += "------------------------------------------"
+        return output_dir + title + "-" + date_accessed
 
-    log_to_file(output)
+    file_path = construct_file_path(results, output_dir)
+
+    for key in sorted(results.keys()):
+        #print(key, type(results[key]))
+        query_result = results[key]
+        if query_result == None:
+            query_result = "None"
+        file_input = file_input + key + ": " + query_result + "\n"
+
+    log_to_file(file_input, file_path)
+
+
 
 def scrape_to_dict(url: str, info_requests: list[str]=["title"]) -> dict:
     """performs a list of queries given ebay listing url and returns a
@@ -193,6 +221,7 @@ def scrape_to_dict(url: str, info_requests: list[str]=["title"]) -> dict:
 
 
 def is_url(url: str):
+    """validate a URL"""
     return True
 
     
@@ -217,8 +246,10 @@ if __name__ == "__main__":
 
     if is_url(url):
         print("VALID URL")
-        # send_info_to_file(url, ["title", "current_auction", "buy_it_now", "watchers", "number_bids"])
-        pprint(scrape_to_dict(url, ["title", "current_auction", "buy_it_now", "watchers", "number_bids"]))
+        query_list = ["title", "current_auction", "buy_it_now", "watchers", "number_bids"]
+        send_scrape_to_file(url, query_list, "sampleoutputs/")
+        print("Scrape result:")
+        pprint(scrape_to_dict(url, query_list))
     else:
         raise Exception("INVALID URL")
     
