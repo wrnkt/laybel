@@ -122,7 +122,7 @@ def get_buy_it_now(soup: BeautifulSoup) -> str:
     try:
         output = str(soup.find("span", {"id": "prcIsum"}).text)
     except:
-        return "No Buy It Now price."
+        return None
     return output
 
 @add_query
@@ -153,10 +153,8 @@ def get_watchers(soup: BeautifulSoup) -> str:
 ##########
 # GET INFO
 
-def send_info_to_file(
-    url: str="https://www.ebay.com/itm/265954994896?hash=item3dec272ad0:g:eLUAAOSwYARjWDNd",
-    info_requests: list[str]=["title"]):
-    """Performs a list of queries given listing URL"""
+def send_info_to_file(url: str, info_requests: list[str]=["title"]):
+    """Performs a list of queries given eBay listing URL"""
 
     listing_html = requests.get(url)
     listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
@@ -173,6 +171,25 @@ def send_info_to_file(
     output += "------------------------------------------"
 
     log_to_file(output)
+
+def scrape_to_dict(url: str, info_requests: list[str]=["title"]) -> dict:
+    """performs a list of queries given ebay listing url and returns a
+    dictionary"""
+
+    results = {}
+
+    listing_html = requests.get(url)
+    listing_soup = BeautifulSoup(listing_html.content, 'html.parser')
+
+    date_accessed = time.ctime(time.time())
+    results["url"] = url
+    results["access_date"] = date_accessed
+
+    for request in info_requests:
+        query_result = QUERY_DICTIONARY[request](listing_soup)
+        results[request] = query_result
+
+    return results
 
 
 def is_url(url: str):
@@ -200,8 +217,8 @@ if __name__ == "__main__":
 
     if is_url(url):
         print("VALID URL")
-        send_info_to_file(url, ["title", "current_auction", "buy_it_now",
-        "watchers", "number_bids"])
+        # send_info_to_file(url, ["title", "current_auction", "buy_it_now", "watchers", "number_bids"])
+        pprint(scrape_to_dict(url, ["title", "current_auction", "buy_it_now", "watchers", "number_bids"]))
     else:
         raise Exception("INVALID URL")
     
