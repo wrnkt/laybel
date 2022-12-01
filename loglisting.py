@@ -110,7 +110,8 @@ def get_title(soup: BeautifulSoup) -> str:
 @add_query
 def get_current_auction(soup: BeautifulSoup) -> str:
     """Get current auction price from eBay listing page"""
-    output = str(soup.find("span", {"id": "prcIsum_bidPrice"}).text)
+    output = str(soup.find("span", {"itemprop": "price"}).text)
+    output = output[3:]
     return output
 
 @add_query
