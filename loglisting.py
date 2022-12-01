@@ -9,6 +9,8 @@ import pstats
 
 import time
 
+import re
+
 import urllib
 import requests
 from bs4 import BeautifulSoup
@@ -136,7 +138,13 @@ def get_number_bids(soup: BeautifulSoup) -> str:
 def get_watchers(soup: BeautifulSoup) -> str:
     """Get current number of listing watchers"""
     try:
-        output = str(soup.find("span", {"class": "w2b-sgl"}).text)
+        notification = soup.find("div", {"id":
+                                         "vi_notification_new"})
+        notification_span_tag_list = notification.findChildren("span")
+        for span in notification_span_tag_list:
+            if "watch" in span.text:
+                match = re.search(r'\d+', span.text)
+                output = match.group()
     except:
         return "0"
     return output
