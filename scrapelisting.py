@@ -75,7 +75,7 @@ def get_sleep_delay(interval: int) -> int:
 
 def log_to_file(printable: str, file_path: str="output.txt"):
     """Clear file and write to it"""
-    print(f"Printing to {file_path}")
+    print(f"[LOG]: Printing to \n{file_path}")
     with open(file_path, "w") as file:
         print(printable, file=file)
 
@@ -245,9 +245,11 @@ if __name__ == "__main__":
         interval = 1    # default
 
     if is_url(url):
-        print("VALID URL")
+        print()
+        print("[LOG]: VALID URL")
         query_list = ["title", "current_auction", "buy_it_now", "watchers", "number_bids"]
         send_scrape_to_file(url, query_list, "sampleoutputs/")
+        print("\n[LOG]:")
         print("Scrape result:")
         pprint(scrape_to_dict(url, query_list))
     else:
