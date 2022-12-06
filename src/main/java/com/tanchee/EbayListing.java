@@ -23,6 +23,7 @@ public record EbayListing(String url,
                           String title,
                           BigDecimal currentAuctionPrice,
                           int bids,
+                          boolean buyItNow,
                           BigDecimal buyItNowPrice,
                           int watchers,
                           LocalDateTime localAccessDateTime) implements Serializable
@@ -34,9 +35,18 @@ public record EbayListing(String url,
                 "Houston Astros Fitted Hat Size 7 1/4 Courdory",
                 new BigDecimal(47.00),
                 0,
+                false,
                 new BigDecimal(0),
                 1,
                 LocalDateTime.now());
+    }
+
+    public String toString()
+    {
+        String outputTemplate = "url: %s\ntitle: %s\ncurrentAuctionPrice: %s\nbids: %d\nbuyItNow: %b\nbuyItNowPrice: %s\nwatchers: %d\nlocalAccessDateTIme: %s\n";
+
+        return String.format(
+            outputTemplate, url, title, currentAuctionPrice, bids, buyItNow, buyItNowPrice, watchers, localAccessDateTime);
     }
 }
 
