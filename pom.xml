@@ -19,13 +19,6 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
-  <repositories>
-      <repository>
-          <id>project-repository</id>
-          <url>file://${basedir}/repository</url>
-      </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -40,9 +33,15 @@
     </dependency>
 
     <dependency>
-      <groupId>org.gargoylesoftware</groupId>
-      <artifactId>htmlunit</artifactId>
-      <version>2.67.0</version>
+        <groupId>net.sourceforge.htmlunit</groupId>
+        <artifactId>htmlunit</artifactId>
+        <version>2.23</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>5.2.1</version>
     </dependency>
 
   </dependencies>
@@ -79,37 +78,9 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
-          <configuration>
-              <archive>
-                  <manifest>
-                      <addClasspath>true</addClasspath>
-                      <classpathPrefix>${basedir}/dependencies</classpathPrefix>
-                  </manifest>
-              </archive>
-          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-          <!--
-          <configuration>
-              <groupId>org.gargoylesoftware</groupId>
-              <artifactId>htmlunit</artifactId>
-              <version>2.67.0</version>
-              <packaging>jar</packaging>
-              <file>${basedir}/dependencies/htmlunit-2.67.0.jar</file>
-              <generatePom>true</generatePom>
-          </configuration>
-          <executions>
-              <execution>
-                  <id>install-jar-lib</id>
-                  <goals>
-                      <goal>install-file</goal>
-                  </goals>
-                  <phase>validate</phase>
-              </execution>
-          </executions>
-          -->
         </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
