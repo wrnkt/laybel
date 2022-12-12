@@ -1,7 +1,7 @@
 ### Ebay Listing Tracker
 
-> :warning: **eBay changes page structure regularly. Will require too much upkeep to
-maintain code to get info by element**   
+> :warning: **eBay changes HTML structure regularly. Will require too much upkeep to
+maintain code to get info by element.**   
 > ****Using AI to process a screenshot of the page may work, as the page
 appearance is generally the same no matter the elements.****
 
