@@ -56,7 +56,7 @@ def create_parser():
     return parser
 
 
-def get_sleep_delay(interval: int) -> int:
+def sleep_delay(interval: int) -> int:
     """Get necessary time delay between polling based on interval."""
     seconds_in_day = 86400
     second_delay = 0
