@@ -248,7 +248,8 @@ if __name__ == "__main__":
         print()
         print("[LOG]: VALID URL")
         query_list = ["title", "current_auction", "buy_it_now", "watchers", "number_bids"]
-        send_scrape_to_file(url, query_list, "sampleoutputs/")
+        # WARNING: "sampleoutputs/" reference is now broken.
+        send_scrape_to_file(url, query_list, "sampleoutputs/") 
         print("\n[LOG]:")
         print("Scrape result:")
         pprint(scrape_to_dict(url, query_list))
