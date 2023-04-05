@@ -3,6 +3,8 @@ package com.tanchee;
 import java.nio.file.*;
 import java.nio.charset.*;
 
+import java.util.logging.Logger;
+
 
 import java.io.IOException;
 import com.gargoylesoftware.htmlunit.*;
@@ -16,8 +18,8 @@ public class ListingRetriever
 
     public static EbayListing getListing(String url) throws IOException
     {
-        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
-        java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
+        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
+        Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
 
         try(WebClient webClient = new WebClient(BrowserVersion.CHROME))
         {
