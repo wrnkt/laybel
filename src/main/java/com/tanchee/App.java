@@ -18,11 +18,5 @@ public class App
                             Paths.get("tests/output.html"));
         } catch (IOException e) {
             System.out.println(e);
-        }
-        /*
-        EbayListing testListing = EbayListing.test();
-        System.out.println("Hello World!");
-        System.out.println(testListing);
-        */
     }
 }
