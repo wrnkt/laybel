@@ -56,7 +56,7 @@ def create_parser():
     return parser
 
 
-def get_sleep_delay(interval: int) -> int:
+def sleep_delay(interval: int) -> int:
     """Get necessary time delay between polling based on interval."""
     seconds_in_day = 86400
     second_delay = 0
@@ -248,7 +248,8 @@ if __name__ == "__main__":
         print()
         print("[LOG]: VALID URL")
         query_list = ["title", "current_auction", "buy_it_now", "watchers", "number_bids"]
-        send_scrape_to_file(url, query_list, "sampleoutputs/")
+        # WARNING: "sampleoutputs/" reference is now broken.
+        send_scrape_to_file(url, query_list, "sampleoutputs/") 
         print("\n[LOG]:")
         print("Scrape result:")
         pprint(scrape_to_dict(url, query_list))
