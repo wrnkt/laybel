@@ -33,7 +33,7 @@ public class ListingRetriever
 
             writeToFile(content, path);
 
-            System.out.println(getListingTitle(page));
+            //System.out.println(getListingTitle(page));
 
             System.out.println("Got page.");
 
