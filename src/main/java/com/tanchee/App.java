@@ -1,5 +1,7 @@
 package com.tanchee;
 
+import java.nio.file.*;
+
 import java.io.IOException;
 
 import java.math.BigDecimal;
@@ -12,7 +14,8 @@ public class App
     {
         PageSaver ps = new PageSaver();
         try {
-            ps.getListing("https://www.ebay.com/p/5054515552?iid=225512246897");
+            ps.saveListing("https://www.ebay.com/p/5054515552?iid=225512246897",
+                            Paths.get("tests/output.html"));
         } catch (IOException e) {
             System.out.println(e);
         }

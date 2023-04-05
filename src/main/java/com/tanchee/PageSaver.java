@@ -31,18 +31,14 @@ public class PageSaver {
             WebResponse response = page.getWebResponse();
             content = response.getContentAsString();
 
-            //Path path = Paths.get("tests/output.html");
-
-            //writeToFile(content, path);
-
-            //System.out.println(getListingTitle(page));
-
             System.out.println("Got page.");
-
-            // System.out.println(getListingTitle(page));
         }
 
         return content;
+    }
+
+    public void saveListing(String url, Path path) throws IOException {
+            writeToFile(getListing(url), path);
     }
 
     public static void writeToFile(String content, Path path)
